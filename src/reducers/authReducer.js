@@ -1,7 +1,12 @@
+/*
+* Receives data from Auth Actions as action parameter
+* Based on action.type returns a state that's passed into the Store
+*/
+
 import constants from '../constants/actionTypes';
 
 let initialState = {
-    loggedIn: localStorage.getItem('token') ? true : false,
+    loggedIn: !!localStorage.getItem('token'),
     username: localStorage.getItem('username') ? localStorage.getItem('username') : ''
 };
 

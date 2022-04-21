@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
+import '../styles/movielist.css'
 import {connect} from 'react-redux';
-import {Carousel} from 'react-bootstrap';
 import {BsStarFill} from 'react-icons/bs';
-import {Image, Nav} from 'react-bootstrap';
-import {setMovie} from '../actions/movieActions';
-import  {fetchMovies} from '../actions/movieActions';
+import {Image, Nav, Carousel} from 'react-bootstrap';
+import  {setMovie, fetchMovies} from '../actions/movieActions';
 import {LinkContainer} from 'react-router-bootstrap';
 
 class MovieList extends Component {
@@ -38,15 +37,15 @@ class MovieList extends Component {
             return(
                 <Carousel onSelect={this.handleSelect}>
                     {movieList.map((movie) =>
-                        <Carousel.Item key={movie._id}>
+                        <Carousel.Item key={movie.title}>
                             <div>
-                                <LinkContainer to={'/movie/'+movie._id} onClick={()=>this.handleClick(movie)}>
-                                    <Nav.Link><Image className="image" src={movie.imageUrl} thumbnail /></Nav.Link>
+                                <LinkContainer to={'/movie/'+movie.title} onClick={()=>this.handleClick(movie)}>
+                                    <Nav.Link><Image className="image" src={movie.imgUrl} thumbnail fluid /></Nav.Link>
                                 </LinkContainer>
                             </div>
                             <Carousel.Caption>
                                 <h3>{movie.title}</h3>
-                                <BsStarFill glyph={'star'} />{movie.avgRating} &nbsp;&nbsp; {movie.releaseDate}
+                                <BsStarFill glyph={'star'} />{movie.avgRating} &nbsp;&nbsp; {new Date(movie.releaseDate).toDateString()}
                             </Carousel.Caption>
                         </Carousel.Item>
                     )}

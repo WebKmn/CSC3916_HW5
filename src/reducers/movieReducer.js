@@ -1,3 +1,8 @@
+/*
+* Receives data from Movie Actions as action parameter
+* Based on action.type returns a state that's passed into the Store
+*/
+
 import constants from '../constants/actionTypes';
 
 let initialState = {

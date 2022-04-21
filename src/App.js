@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './App.css';
+import './styles/App.css';
 import {Provider} from 'react-redux';
 import {HashRouter, Route} from 'react-router-dom';
 
@@ -20,7 +20,7 @@ function App() {
             <MovieHeader />
             <Route exact path="/" render={() => <MovieList />}/>
             <Route exact path="/movielist" render={() => <MovieList />}/>
-            <Route exact path="/movie/:movieId" render={() => <Movie />}/>
+            <Route exact path="/movie/:title" render={() => <Movie />}/>
             <Route exact path="/signin" render={() => <Authentication />}/>
           </div>
         </HashRouter>

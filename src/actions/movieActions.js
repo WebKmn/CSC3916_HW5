@@ -1,3 +1,7 @@
+/*
+* Movie Actions feeds data into Movie Reducer using dispatch
+*/
+
 import actionTypes from '../constants/actionTypes';
 import runtimeEnv from '@mars/heroku-js-runtime-env';
 
@@ -11,7 +15,7 @@ function moviesFetched(movies){
 function movieFetched(movie){
     return{
         type: actionTypes.FETCH_MOVIE,
-        movie: movie
+        selectedMovie: movie
     }
 }
 
@@ -28,24 +32,24 @@ export function setMovie(movie){
     }
 }
 
-export function fetchMovie(movieId){
+export function fetchMovie(movieTitle){
     const env = runtimeEnv();
     return dispatch => {
-        return fetch(`${env.REACT_APP_API_URL}/movies/${movieId}?reviews=ture`, {
+        return fetch(`${env.REACT_APP_API_URL}/movies/${movieTitle}?reviews=true`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token')
             },
-            mode: 'coors'
+            mode: 'cors'
         }).then((response) => {
             if(!response.ok){
                 throw Error(response.statusText);
             }
             return response.json()
         }).then((res) => {
-            dispatch(movieFetched(res));
+            dispatch(movieFetched(res.movie));
         }).catch((e) => console.log(e));
     }
 }
@@ -53,21 +57,21 @@ export function fetchMovie(movieId){
 export function fetchMovies(){
     const env = runtimeEnv();
     return dispatch => {
-        return fetch(`${env.REACT_APP_API_URL}/movies/?reviews=ture`, {
+        return fetch(`${env.REACT_APP_API_URL}/movies?reviews=true`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token')
             },
-            mode: 'coors'
+            mode: 'cors'
         }).then((response) => {
             if(!response.ok){
                 throw Error(response.statusText);
             }
             return response.json()
         }).then((res) => {
-            dispatch(moviesFetched(res));
+            dispatch(moviesFetched(res.movies));
         }).catch((e) => console.log(e));
     }
 }
